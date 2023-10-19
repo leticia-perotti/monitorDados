@@ -28,13 +28,16 @@ void setup() {
 }
 
 void loop() {
-  Serial.print("luminosidade:"+String(analogRead(ldr)));
+
+  delay(5000);
+
+  Serial.println("|LUMINOSIDADE:"+String(analogRead(ldr)));
 
   controleDht.read11(pinoDht);
 
-  Serial.print("umidade:"+String(controleDht.humidity)+"|"); 
+  Serial.println("|UMIDADE:"+String(controleDht.humidity)); 
   
-  Serial.print("temperatura:"+String(controleDht.temperature)+"|"); 
+  Serial.println("|TEMPERATURA:"+String(controleDht.temperature)); 
 
   if (!rfid.PICC_IsNewCardPresent() || !rfid.PICC_ReadCardSerial())
     return;
@@ -48,12 +51,10 @@ void loop() {
   }
   strID.toUpperCase();
  
-  Serial.println("cartaoacesso:"+strID+"|");
+  Serial.println("|CARTAOACESSO:"+strID);
  
   rfid.PICC_HaltA();
   rfid.PCD_StopCrypto1();
-
-  delay(1000);
 /*
   if (!rfid.PICC_IsNewCardPresent() || !rfid.PICC_ReadCardSerial()) //VERIFICA SE O CARTÃO PRESENTE NO LEITOR É DIFERENTE DO ÚLTIMO CARTÃO LIDO. CASO NÃO SEJA, FAZ
     return; //RETORNA PARA LER NOVAMENTE
