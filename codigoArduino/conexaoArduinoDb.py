@@ -25,21 +25,12 @@ if con.is_connected():
     aux = aux.replace("n", "")
     aux = aux.replace("r", "")
 
-    print(aux)
-
     aux = aux.split(":")
 
     sql = ("insert into dados(momento, tipo, valor) values ( now() , '" + aux[0] + "' ,'"  + aux[1] + "')")
 
-    print(sql)
     cursor.execute(sql)
-
-    print(cursor.rowcount, "record updated.")
-    print("\n")
-
     cursor.close()
     con.commit()
-    '''cursor.execute('insert into dados(momento, tipo, valor) values (?,?,?)', (date.today() ,aux[0], aux[1]))
-    linha = cursor.fetchone()'''
 
   
