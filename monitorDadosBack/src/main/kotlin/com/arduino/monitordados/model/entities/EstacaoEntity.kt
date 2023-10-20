@@ -10,7 +10,7 @@ import java.util.*
 data class EstacaoEntity (
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Int,
+        val id: Int?,
 
         @Column(length = 100)
         val nome: String,
