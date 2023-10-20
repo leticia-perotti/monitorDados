@@ -17,5 +17,9 @@ data class DadosEntity (
         val tipo: TipoDados,
 
         @Column(length = 50)
-        val valor: String
+        val valor: String,
+
+        @OneToOne
+        @JoinColumn(name = "estacao", referencedColumnName = "id")
+        val estacao: EstacaoEntity
 )
