@@ -9,7 +9,7 @@ import java.util.Date
 data class TagsEntity (
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Int,
+        val id: Int?,
 
         @Column(length = 50)
         val enderecoMac: String,

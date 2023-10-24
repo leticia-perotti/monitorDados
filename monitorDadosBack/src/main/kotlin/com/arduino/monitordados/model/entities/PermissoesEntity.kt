@@ -7,7 +7,7 @@ import jakarta.persistence.*
 data class PermissoesEntity (
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Int,
+        val id: Int?,
 
         @Column(length = 100)
         val descricao: String,
