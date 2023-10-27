@@ -9,7 +9,7 @@ import java.util.Date
 data class ControleFisicoEntity (
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Int,
+        val id: Int?,
 
         val horaIni: Time,
 
