@@ -22,16 +22,23 @@ interface DadosRepository : JpaRepository<DadosEntity, Int>{
             @Param("momentoini") momentoini: Date,
             @Param("momentofim") momentofim: Date
     ): List<MediaDadosDTO?>?
-    /*@Query(
-            "select d.tipo, avg(cast(d.valor as double))" +
-                    " " +
-                    "from dados d where d.tipo <> 'CARTAOACESSO' " +
-                    "and time(d.momento) between time(:momentoini) " +
-                    "and time(:momentofim) and date(d.momento) = date(:momentoini)\n" +
-                    "group by d.tipo ", nativeQuery = true
+
+    @Query(
+            " select d from DadosEntity d where d.momento between :momentoini and :momentofim" +
+                    " and d.estacao.id = :estacao "
     )
-    fun selecionaMediaDados(
+    fun buscaDados(
+            @Param("estacao") estacao: Int,
             @Param("momentoini") momentoini: Date,
             @Param("momentofim") momentofim: Date
-    ): List<MediaDadosDTO>?*/
+    ): List<DadosEntity>?
+
+    @Query(
+            "select coalesce(count(*), 0) + 1 from dados where valor = :mac and date(momento) = date(:data)",
+            nativeQuery = true
+    )
+    fun pontoBatidoDias(
+            @Param("mac") mac: String  ,
+            @Param("data") data: Date
+    ): Int
 }

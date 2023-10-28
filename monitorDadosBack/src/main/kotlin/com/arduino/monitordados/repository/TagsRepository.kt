@@ -33,4 +33,6 @@ interface TagsRepository : JpaRepository<TagsEntity, Int>{
     fun retornaTagPorId(
           @Param("id") id: Int
     ): TagReturnDatailDTO
+
+    fun findByEnderecoMac(endereco: String): TagsEntity?
 }

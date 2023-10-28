@@ -31,13 +31,13 @@ void loop() {
 
   delay(5000);
 
-  Serial.println("|LUMINOSIDADE:"+String(analogRead(ldr)));
+  Serial.println("|LUMINOSIDADE="+String(analogRead(ldr)));
 
   controleDht.read11(pinoDht);
 
-  Serial.println("|UMIDADE:"+String(controleDht.humidity)); 
+  Serial.println("|UMIDADE="+String(controleDht.humidity)); 
   
-  Serial.println("|TEMPERATURA:"+String(controleDht.temperature)); 
+  Serial.println("|TEMPERATURA="+String(controleDht.temperature)); 
 
   if (!rfid.PICC_IsNewCardPresent() || !rfid.PICC_ReadCardSerial())
     return;
@@ -51,7 +51,7 @@ void loop() {
   }
   strID.toUpperCase();
  
-  Serial.println("|CARTAOACESSO:"+strID);
+  Serial.println("|CARTAOACESSO="+strID);
  
   rfid.PICC_HaltA();
   rfid.PCD_StopCrypto1();

@@ -25,7 +25,7 @@ if con.is_connected():
     aux = aux.replace("n", "")
     aux = aux.replace("r", "")
 
-    aux = aux.split(":")
+    aux = aux.split("=")
 
     sql = ("insert into dados(momento, tipo, valor, estacao) values ( now() , '" + aux[0] + "' ,'"  + aux[1] + "', 1)")
 

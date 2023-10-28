@@ -1,6 +1,9 @@
 package com.arduino.monitordados.service
 
+import com.arduino.monitordados.model.constants.TipoDados
+import com.arduino.monitordados.model.entities.DadosEntity
 import com.arduino.monitordados.model.mapper.ControleFisicoMapper
+import com.arduino.monitordados.model.mapper.ControlePontoMapper
 import com.arduino.monitordados.repository.ControleFisicoRepository
 import com.arduino.monitordados.repository.ControlePontoRepository
 import com.arduino.monitordados.repository.DadosRepository
@@ -16,7 +19,8 @@ class DadosService (
         private val controlePontoRepository: ControlePontoRepository,
         private val estacaoRepository: EstacaoRepository,
         private val listasControladoras: ListasControladoras,
-        private val controleFisicoMapper: ControleFisicoMapper
+        private val controleFisicoMapper: ControleFisicoMapper,
+        private val controlePontoMapper: ControlePontoMapper
 ) {
 
     fun criaListasControladoras(){
@@ -27,7 +31,7 @@ class DadosService (
     }
 
     fun buscaUltimoMomento(estacao: Int): Date{
-        return dadosRepository.buscaUltimoMomentoPorEstacao(estacao)?.momento ?: Date()
+        return /*dadosRepository.buscaUltimoMomentoPorEstacao(estacao)?.momento ?:*/ Date(Date().time - 3600000)
     }
 
     fun sincronizaMediaDados(){
@@ -44,7 +48,24 @@ class DadosService (
         controleFisicoRepository.save(entidade)
     }
 
-    fun limpaTabelaDados(){
-        dadosRepository.deleteAll()
+    fun buscaDadoPorEstacao(){
+        println("AQUIIIIIIIII")
+        println(listasControladoras.controleEstacoes.first())
+        listasControladoras.controleEstacoes.forEach{
+            val dados = dadosRepository.buscaDados(it.estacao, it.momento, Date())
+
+            println(dados?.filter { it -> it.tipo == TipoDados.CARTAOACESSO})
+            salvaDadosPonto(dados?.filter { it -> it.tipo == TipoDados.CARTAOACESSO })
+        }
+    }
+
+    fun salvaDadosPonto(ponto: List<DadosEntity>?){
+        ponto?.forEach { it ->
+            controlePontoMapper.toControlePontoEntity(it)?.let { it1 ->
+                controlePontoRepository.save(
+                        it1
+                )
+            }
+        }
     }
 }

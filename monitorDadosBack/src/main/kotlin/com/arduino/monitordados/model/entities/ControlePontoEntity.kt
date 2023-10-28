@@ -8,7 +8,7 @@ import java.util.*
 data class ControlePontoEntity (
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Int,
+        val id: Int?,
 
         val momento: Date,
 

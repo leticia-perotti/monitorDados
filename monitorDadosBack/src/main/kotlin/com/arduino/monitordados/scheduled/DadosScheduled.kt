@@ -1,6 +1,7 @@
 package com.arduino.monitordados.scheduled
 
 import com.arduino.monitordados.service.DadosService
+import jakarta.annotation.PostConstruct
 import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
@@ -12,15 +13,14 @@ class DadosScheduled(
         private val dadosService: DadosService
 ) {
 
-    @PostMapping
+    @PostConstruct
     fun criaListasControladoras(){
         dadosService.criaListasControladoras()
     }
 
     @Scheduled(cron ="*/15 * * * * *")
-    fun testeDoSchuled(){
-        println("Teste")
-        println()
+    fun buscaDadoPorEstacao(){
+        dadosService.buscaDadoPorEstacao()
     }
 
     @Scheduled(cron = "0 0 * * * *")
