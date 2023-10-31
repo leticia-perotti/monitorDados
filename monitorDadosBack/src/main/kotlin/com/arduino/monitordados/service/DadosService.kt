@@ -1,5 +1,7 @@
 package com.arduino.monitordados.service
 
+import com.arduino.monitordados.config.Stock
+import com.arduino.monitordados.config.TradeWebSocketHandler
 import com.arduino.monitordados.model.constants.TipoDados
 import com.arduino.monitordados.model.entities.DadosEntity
 import com.arduino.monitordados.model.mapper.ControleFisicoMapper
@@ -10,7 +12,8 @@ import com.arduino.monitordados.repository.DadosRepository
 import com.arduino.monitordados.repository.EstacaoRepository
 import com.arduino.monitordados.scheduled.ListasControladoras
 import org.springframework.stereotype.Service
-import java.util.Date
+import org.springframework.web.socket.TextMessage
+import java.util.*
 
 @Service
 class DadosService (
@@ -20,7 +23,8 @@ class DadosService (
         private val estacaoRepository: EstacaoRepository,
         private val listasControladoras: ListasControladoras,
         private val controleFisicoMapper: ControleFisicoMapper,
-        private val controlePontoMapper: ControlePontoMapper
+        private val controlePontoMapper: ControlePontoMapper,
+        private val socket: TradeWebSocketHandler
 ) {
 
     fun criaListasControladoras(){
@@ -67,5 +71,31 @@ class DadosService (
                 )
             }
         }
+    }
+
+    fun teste(){
+        println("VAI SOCKET")
+
+        var r: Random = Random()
+
+        var oldPrice = 0.0f
+
+        //Publishing new stock prices every one second for 100 times
+
+        //Calculating Random stock price between 12$ to 13$
+        val stockPrice: Float = 12 + r.nextFloat() * (13 - 12)
+        val roundedPrice = (Math.round(stockPrice * 100.0) / 100.0).toFloat()
+
+        //Creating a Stock Object
+        val stock = Stock("Amazon",
+                Date(),
+                roundedPrice.toDouble())
+        //Finding whether the stock pric increased or decreased
+        if (roundedPrice > oldPrice) {
+            stock.increased = true
+        }
+        oldPrice = roundedPrice
+        socket.enviaMensagem(stock)
+
     }
 }
