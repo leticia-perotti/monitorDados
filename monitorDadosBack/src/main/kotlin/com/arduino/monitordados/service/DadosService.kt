@@ -3,6 +3,10 @@ package com.arduino.monitordados.service
 import com.arduino.monitordados.config.Stock
 import com.arduino.monitordados.config.TradeWebSocketHandler
 import com.arduino.monitordados.model.constants.TipoDados
+import com.arduino.monitordados.model.dto.CartaoAcessoSocketDTO
+import com.arduino.monitordados.model.dto.DadosFisicosSocketDTO
+import com.arduino.monitordados.model.dto.DadosSocketDTO
+import com.arduino.monitordados.model.entities.ControlePontoEntity
 import com.arduino.monitordados.model.entities.DadosEntity
 import com.arduino.monitordados.model.mapper.ControleFisicoMapper
 import com.arduino.monitordados.model.mapper.ControlePontoMapper
@@ -53,49 +57,45 @@ class DadosService (
     }
 
     fun buscaDadoPorEstacao(){
-        println("AQUIIIIIIIII")
-        println(listasControladoras.controleEstacoes.first())
         listasControladoras.controleEstacoes.forEach{
             val dados = dadosRepository.buscaDados(it.estacao, it.momento, Date())
 
-            println(dados?.filter { it -> it.tipo == TipoDados.CARTAOACESSO})
             salvaDadosPonto(dados?.filter { it -> it.tipo == TipoDados.CARTAOACESSO })
+
+            enviaOutrosDados(dados?.filter { it -> it.tipo != TipoDados.CARTAOACESSO })
         }
     }
 
+    fun enviaOutrosDados(dados: List<DadosEntity>?){
+        dados?.forEach {
+            socket.enviaMensagem(
+                    DadosSocketDTO(it.tipo, DadosFisicosSocketDTO(
+                            it.momento, it.valor.toDouble()
+                    ))
+            )
+        }
+    }
     fun salvaDadosPonto(ponto: List<DadosEntity>?){
         ponto?.forEach { it ->
             controlePontoMapper.toControlePontoEntity(it)?.let { it1 ->
-                controlePontoRepository.save(
+                val cartao = controlePontoRepository.save(
                         it1
                 )
+                enviaMensagemCartaoAcesso(cartao, it.momento)
             }
         }
     }
 
-    fun teste(){
-        println("VAI SOCKET")
+    fun enviaMensagemCartaoAcesso(cartao: ControlePontoEntity, momento: Date){
+        val acesso = CartaoAcessoSocketDTO(
+                momento,
+                cartao.tag.funcionario ?: "Não cadastrado",
+                cartao.sequencia
+        )
 
-        var r: Random = Random()
-
-        var oldPrice = 0.0f
-
-        //Publishing new stock prices every one second for 100 times
-
-        //Calculating Random stock price between 12$ to 13$
-        val stockPrice: Float = 12 + r.nextFloat() * (13 - 12)
-        val roundedPrice = (Math.round(stockPrice * 100.0) / 100.0).toFloat()
-
-        //Creating a Stock Object
-        val stock = Stock("Amazon",
-                Date(),
-                roundedPrice.toDouble())
-        //Finding whether the stock pric increased or decreased
-        if (roundedPrice > oldPrice) {
-            stock.increased = true
-        }
-        oldPrice = roundedPrice
-        socket.enviaMensagem(stock)
+        socket.enviaMensagem(
+                DadosSocketDTO(TipoDados.CARTAOACESSO, acesso)
+        )
 
     }
 }

@@ -1,5 +1,6 @@
 package com.arduino.monitordados.config
 
+import com.arduino.monitordados.model.dto.DadosSocketDTO
 import com.arduino.monitordados.scheduled.ListasControladoras
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.beans.factory.annotation.Autowired
@@ -22,15 +23,6 @@ class TradeWebSocketHandler : TextWebSocketHandler() {
         sessions.add(SocketClient(
                 session, 1
         ))
-
-        println(session)
-        println(sessions)
-        println(session.isOpen)
-        enviaMensagem(
-                Stock(
-                      "Teste", Date(),   0.0
-                )
-        )
     }
 
     override fun afterConnectionClosed(session: WebSocketSession, status: CloseStatus) {
@@ -39,10 +31,9 @@ class TradeWebSocketHandler : TextWebSocketHandler() {
         )
     }
 
-    fun enviaMensagem(stock: Any){
-        println("TESTEEEE")
-        println(sessions)
-        val message = TextMessage(objectMapper.writeValueAsString(stock))
+    fun enviaMensagem(mensagem: DadosSocketDTO){
+
+        val message = TextMessage(objectMapper.writeValueAsString(mensagem))
 
         sessions.forEach{
             it.session.sendMessage(message)

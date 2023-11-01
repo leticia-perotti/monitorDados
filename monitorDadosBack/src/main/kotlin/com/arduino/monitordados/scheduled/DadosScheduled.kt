@@ -22,8 +22,7 @@ class DadosScheduled(
 
     @Scheduled(cron ="*/15 * * * * *")
     fun buscaDadoPorEstacao(){
-        dadosService.teste()
-        //dadosService.buscaDadoPorEstacao()
+        dadosService.buscaDadoPorEstacao()
     }
 
     @Scheduled(cron = "0 0 * * * *")
