@@ -63,6 +63,8 @@ class DadosService (
             salvaDadosPonto(dados?.filter { it -> it.tipo == TipoDados.CARTAOACESSO })
 
             enviaOutrosDados(dados?.filter { it -> it.tipo != TipoDados.CARTAOACESSO })
+
+            it.momento = Date();
         }
     }
 

@@ -1,5 +1,6 @@
 package com.arduino.monitordados.service
 
+import com.arduino.monitordados.exceptions.FieldIncorrectException
 import com.arduino.monitordados.model.dto.TagPostDTO
 import com.arduino.monitordados.model.dto.TagReturnDTO
 import com.arduino.monitordados.model.dto.TagReturnDatailDTO
@@ -15,9 +16,19 @@ class TagsService(
 ) {
 
     fun salvaTag(tag: TagPostDTO): TagReturnDTO {
-        var entidade = tagsMapper.postDTOtoEntity(tag)
-        entidade = tagsRepository.save(entidade)
-        return tagsMapper.entityToTagReturnDTO(entidade)
+        try{
+            if (tagsRepository.findByEnderecoMac(tag.enderecoMac) != null){
+                throw FieldIncorrectException("Esse endereço MAC já foi cadastrado, é preciso informar outro!")
+            }
+            var entidade = tagsMapper.postDTOtoEntity(tag)
+
+            entidade = tagsRepository.save(entidade)
+            return tagsMapper.entityToTagReturnDTO(entidade)
+        }catch (e: FieldIncorrectException){
+            throw FieldIncorrectException(e.message)
+        }catch (e: Exception){
+            throw FieldIncorrectException("Algum dos campos informados não é valido, verifique!")
+        }
     }
 
     fun pesquisaTags(

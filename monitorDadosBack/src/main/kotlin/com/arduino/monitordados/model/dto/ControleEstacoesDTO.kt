@@ -4,5 +4,5 @@ import java.util.*
 
 data class ControleEstacoesDTO (
         val estacao: Int,
-        val momento: Date
+        var momento: Date
 )
