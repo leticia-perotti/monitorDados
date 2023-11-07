@@ -17,7 +17,7 @@ class TagsService(
 
     fun salvaTag(tag: TagPostDTO): TagReturnDTO {
         try{
-            if (tagsRepository.findByEnderecoMac(tag.enderecoMac) != null){
+            if (tagsRepository.findByEnderecoMacAndIdNot(tag.enderecoMac, tag.id ?: 0) != null ){
                 throw FieldIncorrectException("Esse endereço MAC já foi cadastrado, é preciso informar outro!")
             }
             var entidade = tagsMapper.postDTOtoEntity(tag)

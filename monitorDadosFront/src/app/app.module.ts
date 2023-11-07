@@ -11,12 +11,18 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
 import { CadastroFuncionarioComponent } from './cadastro-funcionario/cadastro-funcionario.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatInputModule} from '@angular/material/input';
+import {MatTableModule} from '@angular/material/table';
+import { CadastroFuncionarioService } from './cadastro-funcionario/cadastro-funcionario.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     MonitorDadosComponent,
-    CadastroFuncionarioComponent
+    CadastroFuncionarioComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,12 +32,19 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
-    MatDialogModule
+    MatDialogModule,
+    MatFormFieldModule,
+    MatGridListModule,
+    MatInputModule,
+    MatTableModule,
+    HttpClientModule
   ],
   exports:[
     MatToolbarModule
   ],
-  providers: [],
+  providers: [
+    CadastroFuncionarioService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

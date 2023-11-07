@@ -35,4 +35,6 @@ interface TagsRepository : JpaRepository<TagsEntity, Int>{
     ): TagReturnDatailDTO
 
     fun findByEnderecoMac(endereco: String): TagsEntity?
+
+    fun findByEnderecoMacAndIdNot(endereco: String, id: Int): TagsEntity?
 }
