@@ -14,9 +14,10 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatInputModule} from '@angular/material/input';
-import {MatTableModule} from '@angular/material/table';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { CadastroFuncionarioService } from './cadastro-funcionario/cadastro-funcionario.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatGridListModule,
     MatInputModule,
     MatTableModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
   ],
   exports:[
     MatToolbarModule

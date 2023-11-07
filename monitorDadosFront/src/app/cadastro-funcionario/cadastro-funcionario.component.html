@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>
 
-  Cadastro de funcionário
+  Cadastrar de funcionário
 
   <button mat-icon-button aria-label="Fechar" [mat-dialog-close]="true">
     <mat-icon>clear</mat-icon>
@@ -9,7 +9,7 @@
 <mat-dialog-content class="mat-typography">
 
 
-
+    <div *ngIf="cadastrar">
       <mat-form-field>
         <mat-label>Funcionário</mat-label>
         <input matInput>
@@ -24,9 +24,44 @@
         <mat-label>Endereço MAC</mat-label>
         <input matInput>
       </mat-form-field>
+    </div>
 
+    <div class="basic-container">
+      <button mat-raised-button color="accent" *ngIf="!loading && !cadastrar">Cadastrar</button>
 
-  
+      <mat-form-field *ngIf="!loading && !cadastrar">
+        <mat-label>Filtrar</mat-label>
+        <input matInput (keyup)="applyFilter($event)" [(ngModel)]="filtro">
+      </mat-form-field>
+
+        <table mat-table [dataSource]="dadosTags"  *ngIf="!loading && !cadastrar">
+
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Id. </th>
+            <td mat-cell *matCellDef="let element"> {{element?.id}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="funcionario">
+            <th mat-header-cell *matHeaderCellDef> Funcionário</th>
+            <td mat-cell *matCellDef="let element"> {{element?.funcionario}} </td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="cargo">
+            <th mat-header-cell *matHeaderCellDef> Cargo </th>
+            <td mat-cell *matCellDef="let element"> {{element?.cargo}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+
 </mat-dialog-content>
 <mat-dialog-actions align="end">
 
