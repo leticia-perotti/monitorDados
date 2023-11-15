@@ -31,11 +31,11 @@ export class CadastroFuncionarioComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.loading = true
     this.pesquisaTags()
   }
 
   pesquisaTags(){
+    this.loading = true
     this.service.buscaDadosTags().subscribe((dados: any) => {
       this.dadosTags = new MatTableDataSource(dados);
       this.loading = false
@@ -48,7 +48,6 @@ export class CadastroFuncionarioComponent implements OnInit {
 
 
   salvarTags(){
-    console.log(this.formulario)
     this.service.salvarTag(this.formulario).subscribe(
       () => {
         this.openToast("Funcionário cadastrado com sucesso!");

@@ -6,4 +6,8 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface ControlePontoRepository: JpaRepository<ControlePontoEntity, Int> {
+
+    fun findFirstByTag_Id(tag: Int): ControlePontoEntity?
+
+
 }

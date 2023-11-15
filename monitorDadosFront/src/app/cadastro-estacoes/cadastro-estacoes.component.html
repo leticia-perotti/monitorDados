@@ -1,7 +1,7 @@
 <div class="modal-container">
   <h2 mat-dialog-title class="example-full-width alinhamento-titulo">
 
-    <label>Cadastrar de funcionário</label>
+    <label>Cadastrar de estações</label>
 
     <button mat-icon-button aria-label="Fechar" [mat-dialog-close]="true" align="end">
       <mat-icon>clear</mat-icon>
@@ -13,25 +13,19 @@
 
       <div class="inputs-form">
         <mat-form-field class="example-full-width">
-          <mat-label>Funcionário</mat-label>
-          <input matInput [(ngModel)]="formulario.funcionario" name="funcionario" required>
+          <mat-label>Nome</mat-label>
+          <input matInput [(ngModel)]="formulario.nome" name="funcionario" required>
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-          <mat-label>Cargo</mat-label>
-          <input matInput [(ngModel)]="formulario.cargo" name="cargo" required>
-        </mat-form-field>
-
-        <mat-form-field class="example-full-width">
-          <mat-label>Endereço MAC</mat-label>
-          <input matInput [(ngModel)]="formulario.enderecoMac" name="enderecoMac" [mask]="'00:00:00:00'" required>
+          <mat-label>Localização</mat-label>
+          <input matInput [(ngModel)]="formulario.localizacao" name="cargo" required>
         </mat-form-field>
       </div>
 
       <div class="alinhamento-botoes">
-        <button mat-raised-button *ngIf="cadastrar || editar" (click)="cancelarTags()">Cancelar</button>
-        <button mat-raised-button color="primary" *ngIf="cadastrar || editar" (click)="salvarTags()">Salvar</button>
-        <button mat-raised-button color="primary" *ngIf="visualizar" >Voltar</button>
+        <button mat-raised-button *ngIf="cadastrar" (click)="cancelarEstacao()">Cancelar</button>
+        <button mat-raised-button color="primary" *ngIf="cadastrar" (click)="salvarEstacao()">Salvar</button>
       </div>
     </form>
 
@@ -42,7 +36,7 @@
         </div>
 
         <div align="end" class="btn-cadastrar">
-          <button mat-raised-button color="accent" *ngIf="!loading && !cadastrar" (click)="cadastrarFuncionario()" >Cadastrar</button>
+          <button mat-raised-button color="accent" *ngIf="!loading && !cadastrar" (click)="cadastrarEstacao()" >Cadastrar</button>
         </div>
 
         <mat-form-field class="example-full-width" *ngIf="!loading && !cadastrar">
@@ -62,26 +56,22 @@
             </ng-container>
 
             <!-- Name Column -->
-            <ng-container matColumnDef="funcionario">
-              <th mat-header-cell *matHeaderCellDef> Funcionário</th>
-              <td mat-cell *matCellDef="let element"> {{element?.funcionario}} </td>
+            <ng-container matColumnDef="nome">
+              <th mat-header-cell *matHeaderCellDef> Nome</th>
+              <td mat-cell *matCellDef="let element"> {{element?.nome}} </td>
             </ng-container>
 
             <!-- Weight Column -->
-            <ng-container matColumnDef="cargo">
-              <th mat-header-cell *matHeaderCellDef> Cargo </th>
-              <td mat-cell *matCellDef="let element"> {{element?.cargo}} </td>
+            <ng-container matColumnDef="localizacao">
+              <th mat-header-cell *matHeaderCellDef> Localização </th>
+              <td mat-cell *matCellDef="let element"> {{element?.localizacao}} </td>
             </ng-container>
 
             <ng-container matColumnDef="acoes">
               <th mat-header-cell *matHeaderCellDef> Ações </th>
               <td mat-cell *matCellDef="let element">
                 <div class="alinhamento-botoes">
-                  <button mat-mini-fab color="warn" aria-label="Excluir" (click)="excluirFuncionario(element)">
-                    <mat-icon>delete</mat-icon>
-                  </button>
-
-                  <button mat-mini-fab color="accent" aria-label="Editar" (click)="editarFuncionario(element)">
+                  <button mat-mini-fab color="accent" aria-label="Editar" (click)="editarEstacao(element)">
                     <mat-icon>edit</mat-icon>
                   </button>
                 </div>

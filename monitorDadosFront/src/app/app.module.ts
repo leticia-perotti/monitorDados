@@ -22,6 +22,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ToastComponentComponent } from './toast-component/toast-component.component';
 import { NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask, provideNgxMask } from 'ngx-mask';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import { CadastroEstacoesComponent } from './cadastro-estacoes/cadastro-estacoes.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
     MonitorDadosComponent,
     CadastroFuncionarioComponent,
     ToastComponentComponent,
+    CadastroEstacoesComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,8 @@ import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
     MatSnackBarModule,
     NgxMaskDirective,
     NgxMaskPipe,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatProgressSpinnerModule
   ],
   exports:[
     MatToolbarModule

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CadastroFuncionarioComponent } from '../cadastro-funcionario/cadastro-funcionario.component';
+import { CadastroEstacoesComponent } from '../cadastro-estacoes/cadastro-estacoes.component';
 
 @Component({
   selector: 'app-monitor-dados',
@@ -15,9 +16,9 @@ export class MonitorDadosComponent {
 
   abrirCadastroFuncionario(){
     const dialogRef = this.dialog.open(CadastroFuncionarioComponent);
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+  abrirCadastroEstacoes(){
+    const dialogRef = this.dialog.open(CadastroEstacoesComponent);
   }
 }

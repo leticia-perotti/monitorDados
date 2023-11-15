@@ -6,13 +6,15 @@ import com.arduino.monitordados.model.dto.TagReturnDTO
 import com.arduino.monitordados.model.dto.TagReturnDatailDTO
 import com.arduino.monitordados.model.entities.TagsEntity
 import com.arduino.monitordados.model.mapper.TagsMapper
+import com.arduino.monitordados.repository.ControlePontoRepository
 import com.arduino.monitordados.repository.TagsRepository
 import org.springframework.stereotype.Service
 
 @Service
 class TagsService(
         private val tagsRepository: TagsRepository,
-        private val tagsMapper: TagsMapper
+        private val tagsMapper: TagsMapper,
+        private val controlePontoRepository: ControlePontoRepository
 ) {
 
     fun salvaTag(tag: TagPostDTO): TagReturnDTO {
@@ -42,6 +44,15 @@ class TagsService(
     }
 
     fun excluiTagPorId(id: Int){
-        tagsRepository.deleteById(id)
+        try{
+            if (controlePontoRepository.findFirstByTag_Id(id) != null) {
+                throw FieldIncorrectException("Não é possível excluir um funcionário com registro de ponto!")
+            }
+            tagsRepository.deleteById(id)
+        }catch (e: FieldIncorrectException){
+            throw FieldIncorrectException(e.message)
+        }catch (e: Exception){
+            throw Exception("Não foi possível excluir a tag!")
+        }
     }
 }
