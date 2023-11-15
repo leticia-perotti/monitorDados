@@ -13,7 +13,7 @@ interface TagsRepository : JpaRepository<TagsEntity, Int>{
 
     @Query(
            "select new com.arduino.monitordados.model.dto.TagReturnDTO(" +
-                   "    tag.id, tag.funcionario, tag.cargo" +
+                   "    tag.id, tag.funcionario, tag.cargo, tag.enderecoMac" +
                    ") from TagsEntity tag" +
                    " where" +
                    " upper(tag.funcionario) like upper(concat('%', :funcionario, '%') )" +

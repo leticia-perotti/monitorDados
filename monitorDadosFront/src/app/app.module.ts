@@ -18,12 +18,17 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { CadastroFuncionarioService } from './cadastro-funcionario/cadastro-funcionario.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ToastComponentComponent } from './toast-component/toast-component.component';
+import { NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask, provideNgxMask } from 'ngx-mask';
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
     AppComponent,
     MonitorDadosComponent,
     CadastroFuncionarioComponent,
+    ToastComponentComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,12 +45,17 @@ import { FormsModule } from '@angular/forms';
     MatTableModule,
     HttpClientModule,
     FormsModule,
+    MatSnackBarModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
+    MatPaginatorModule
   ],
   exports:[
     MatToolbarModule
   ],
   providers: [
-    CadastroFuncionarioService
+    CadastroFuncionarioService,
+    provideNgxMask()
   ],
   bootstrap: [AppComponent]
 })

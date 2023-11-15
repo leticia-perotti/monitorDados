@@ -25,7 +25,8 @@ class TagsMapper {
         return TagReturnDTO(
                 tag.id,
                 tag.funcionario,
-                tag.cargo
+                tag.cargo,
+                tag.enderecoMac
         )
     }
 }
