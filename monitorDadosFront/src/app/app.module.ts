@@ -24,6 +24,9 @@ import { NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask, provideNgxMas
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import { CadastroEstacoesComponent } from './cadastro-estacoes/cadastro-estacoes.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { CadastroPermissoesComponent } from './cadastro-permissoes/cadastro-permissoes.component';
+import { CadastroUsuariosComponent } from './cadastro-usuarios/cadastro-usuarios.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     CadastroFuncionarioComponent,
     ToastComponentComponent,
     CadastroEstacoesComponent,
+    CadastroPermissoesComponent,
+    CadastroUsuariosComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,7 +57,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     NgxMaskDirective,
     NgxMaskPipe,
     MatPaginatorModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSelectModule
   ],
   exports:[
     MatToolbarModule

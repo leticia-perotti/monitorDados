@@ -1,5 +1,6 @@
 package com.arduino.monitordados.service
 
+import com.arduino.monitordados.model.dto.BasicoDTO
 import com.arduino.monitordados.model.dto.PermissaoPostDTO
 import com.arduino.monitordados.model.dto.PermissaoReturnDTO
 import com.arduino.monitordados.model.mapper.PermissaoMapper
@@ -24,5 +25,9 @@ class PermissaoService(
 
     fun retornaPermissaoPorId(id: Int):PermissaoReturnDTO?{
         return permissaoRepository.retornaPermissaoPorId(id)
+    }
+
+    fun retornaPermissoesCombobox():List<BasicoDTO>{
+        return permissaoRepository.retornaPermissaoCombobox()
     }
 }

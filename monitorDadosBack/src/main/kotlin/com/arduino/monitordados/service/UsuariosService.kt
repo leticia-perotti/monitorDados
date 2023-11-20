@@ -5,6 +5,8 @@ import com.arduino.monitordados.model.dto.UsuarioResponseDTO
 import com.arduino.monitordados.model.mapper.UsuariosMapper
 import com.arduino.monitordados.repository.UsuariosRepository
 import org.springframework.stereotype.Service
+import java.lang.reflect.Executable
+import kotlin.math.E
 
 @Service
 class UsuariosService(
@@ -13,9 +15,13 @@ class UsuariosService(
 ) {
 
     fun salvaUsuario(usuario: UsuarioPostDTO): UsuarioResponseDTO{
-        var entidade = usuariosMapper.postDtoToEntity(usuario)
-        entidade = usuariosRepository.save(entidade)
-        return usuariosMapper.entityToResponseDTO(entidade)
+        try{
+            var entidade = usuariosMapper.postDtoToEntity(usuario)
+            entidade = usuariosRepository.save(entidade)
+            return usuariosMapper.entityToResponseDTO(entidade)
+        }catch (e: Exception){
+            throw Exception("Não foi possível cadastrar o usuário")
+        }
     }
 
     fun pesquisaUsuarios(usuario: String): List<UsuarioResponseDTO>?{

@@ -1,5 +1,6 @@
 package com.arduino.monitordados.controller
 
+import com.arduino.monitordados.model.dto.BasicoDTO
 import com.arduino.monitordados.model.dto.PermissaoPostDTO
 import com.arduino.monitordados.model.dto.PermissaoReturnDTO
 import com.arduino.monitordados.service.PermissaoService
@@ -31,5 +32,10 @@ class PermissaoController (
         @PathVariable("id") id: Int
     ): ResponseEntity<PermissaoReturnDTO>{
         return ResponseEntity.ok(permissaoService.retornaPermissaoPorId(id))
+    }
+
+    @GetMapping("combobox")
+    fun retornaPermissoesCombobox(): ResponseEntity<List<BasicoDTO>>{
+        return ResponseEntity.ok(permissaoService.retornaPermissoesCombobox())
     }
 }

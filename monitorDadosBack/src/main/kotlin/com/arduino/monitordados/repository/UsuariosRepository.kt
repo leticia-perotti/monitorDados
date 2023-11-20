@@ -12,7 +12,7 @@ interface UsuariosRepository: JpaRepository<UsuariosEntity, Int> {
 
     @Query(
        "select new com.arduino.monitordados.model.dto.UsuarioResponseDTO(" +
-               "    usu.id, usu.nome, usu.email, usu.permissao.descricao" +
+               "    usu.id, usu.nome, usu.email, usu.permissao.descricao, usu.permissao.id" +
                ") from UsuariosEntity usu " +
                " where upper(usu.nome) like upper(concat('%', :usuario,'%') )"
     )
@@ -22,7 +22,7 @@ interface UsuariosRepository: JpaRepository<UsuariosEntity, Int> {
 
     @Query(
             "select new com.arduino.monitordados.model.dto.UsuarioResponseDTO(" +
-                    "usu.id, usu.nome, usu.email, usu.permissao.descricao" +
+                    "usu.id, usu.nome, usu.email, usu.permissao.descricao, usu.permissao.id" +
                     ") from UsuariosEntity usu" +
                     " where usu.id = :id"
     )

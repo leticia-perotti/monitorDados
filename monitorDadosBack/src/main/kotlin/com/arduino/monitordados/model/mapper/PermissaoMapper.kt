@@ -19,7 +19,8 @@ class PermissaoMapper {
     fun entityToPermissaoReturn(permissao: PermissoesEntity): PermissaoReturnDTO{
         return PermissaoReturnDTO(
                 permissao.id,
-                permissao.descricao
+                permissao.descricao,
+                permissao.identificacao
         )
     }
 }

@@ -12,9 +12,13 @@
       <mat-icon>add</mat-icon>
       <span>Cadastrar estação </span>
     </button>
-    <button mat-menu-item>
-      <mat-icon>notifications_off</mat-icon>
-      <span>Disable alerts</span>
+    <button mat-menu-item (click)="abrirCadastroPermissao()">
+      <mat-icon>add</mat-icon>
+      <span>Cadastrar permissão </span>
+    </button>
+    <button mat-menu-item (click)="abrirCadastroUsuarios()">
+      <mat-icon>add</mat-icon>
+      <span>Cadastrar usuários </span>
     </button>
   </mat-menu>
 

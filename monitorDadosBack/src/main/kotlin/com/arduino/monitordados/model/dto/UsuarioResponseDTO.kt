@@ -4,5 +4,7 @@ data class UsuarioResponseDTO (
         val id: Int?,
         val nome: String,
         val email: String,
-        val permissao: String
-)
+        val permissao: String,
+        val permissaoId: Int,
+
+        )
