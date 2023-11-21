@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat
 import java.util.*
 
 data class CartaoAcessoSocketDTO (
-        @JsonFormat(pattern = "dd/MM HH:mm:ss")
+        @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
         val momento: Date,
 
         val funcionario: String,

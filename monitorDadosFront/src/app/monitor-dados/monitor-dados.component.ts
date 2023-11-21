@@ -31,4 +31,10 @@ export class MonitorDadosComponent {
   abrirCadastroUsuarios(){
     this.dialog.open(CadastroUsuariosComponent);
   }
+
+  getAltura(){
+    let alturaTooltip = document.getElementById("toolbar")?.clientHeight
+    let altura = 
+    return 'height: 250px'
+  }
 }

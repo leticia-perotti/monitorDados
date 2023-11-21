@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" id="toolbar">
 
   <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
     <mat-icon>menu</mat-icon>
@@ -26,4 +26,24 @@
   <span class="example-spacer"></span>
 
 </mat-toolbar>
+
+<div class="monitor-dados-body" [style]="getAltura()">
+  <mat-grid-list cols="10" rowHeight="10:1">
+    <mat-grid-tile
+      [colspan]="2"
+      [rowspan]="6"
+      style="background-color: blueviolet;">
+      Ponto dos funcionarios
+    </mat-grid-tile>
+    <mat-grid-tile>
+      Grafico 2
+    </mat-grid-tile>
+    <mat-grid-tile>
+      Grafico 3
+    </mat-grid-tile>
+    <mat-grid-tile>
+      Grafico 4
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
 
