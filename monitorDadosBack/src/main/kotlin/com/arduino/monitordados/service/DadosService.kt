@@ -39,7 +39,8 @@ class DadosService (
     }
 
     fun buscaUltimoMomento(estacao: Int): Date{
-        return /*dadosRepository.buscaUltimoMomentoPorEstacao(estacao)?.momento ?:*/ Date(Date().time - 3600000)
+        println(Date(Date().time - 36000000000))
+        return /*dadosRepository.buscaUltimoMomentoPorEstacao(estacao)?.momento ?:*/ Date(Date().time - 36000000000000)
     }
 
     fun sincronizaMediaDados(){
@@ -64,7 +65,7 @@ class DadosService (
 
             enviaOutrosDados(dados?.filter { it -> it.tipo != TipoDados.CARTAOACESSO })
 
-            it.momento = Date();
+            //it.momento = Date();
         }
     }
 
