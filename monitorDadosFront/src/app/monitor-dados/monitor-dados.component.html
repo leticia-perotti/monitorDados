@@ -40,6 +40,15 @@
       </div>
     </div>
     <div class="graficos">
+      <div class="momento">
+        <div class="atualizar">
+          <label>Último momento: {{this.ultimaAtualizacaoDados}}</label>
+          <button mat-button color="primary" (click)="buscaUltimosDados()">
+            <mat-icon>autorenew</mat-icon>
+            Atualizar
+          </button>
+        </div>
+      </div>
       <div class="totalizadores">
         <div class="totalizador">
           <label>Umidade atual:</label>
@@ -70,30 +79,33 @@
       </div>
 
       <div class="ultimos-dados">
-        <div class="lista-ultimos-dados">
+
+        <mat-spinner *ngIf="loadingDados"></mat-spinner>
+
+        <div class="lista-ultimos-dados" *ngIf="!loadingDados">
           <div class="titulo-ultimos-dados azul-escuro">Últimas umidades</div>
-          <div class="listagem-ultimos-dados" *ngFor="let umidade of this.ultimasUmidades">
+          <div class="listagem-ultimos-dados borda-azul" *ngFor="let umidade of this.ultimasUmidades">
             <span>Horários: {{umidade.horaIni}} até {{umidade.horaFim}}</span>
             <span>Data: {{umidade.data}}</span>
-            <span>Valor: {{umidade.valor}}%</span>
+            <span>Valor: {{umidade.valor.toFixed(2)}}%</span>
           </div>
         </div>
 
-        <div class="lista-ultimos-dados">
-          <div class="titulo-ultimos-dados vermelho-escuro">Últimas temperatuas</div>
-          <div class="listagem-ultimos-dados" *ngFor="let temperaturas of this.ultimasTemperaturas">
+        <div class="lista-ultimos-dados" *ngIf="!loadingDados">
+          <div class="titulo-ultimos-dados vermelho-escuro">Últimas temperaturas</div>
+          <div class="listagem-ultimos-dados borda-vermelho-escuro" *ngFor="let temperaturas of this.ultimasTemperaturas">
             <span>Horários: {{temperaturas.horaIni}} até {{temperaturas.horaFim}}</span>
             <span>Data: {{temperaturas.data}}</span>
-            <span>Valor: {{temperaturas.valor}} C</span>
+            <span>Valor: {{temperaturas.valor.toFixed(2)}} C</span>
           </div>
         </div>
 
-        <div class="lista-ultimos-dados">
+        <div class="lista-ultimos-dados" *ngIf="!loadingDados">
           <div class="titulo-ultimos-dados laranja-escuro">Últimas luminosidades</div>
-          <div class="listagem-ultimos-dados" *ngFor="let luminosidade of this.ultimasLuminosidades">
+          <div class="listagem-ultimos-dados borda-laranja-escuro" *ngFor="let luminosidade of this.ultimasLuminosidades">
             <span>Horários: {{luminosidade.horaIni}} até {{luminosidade.horaFim}}</span>
             <span>Data: {{luminosidade.data}}</span>
-            <span>Valor: {{luminosidade.valor}}</span>
+            <span>Valor: {{luminosidade.valor.toFixed(2)}}</span>
           </div>
         </div>
       </div>

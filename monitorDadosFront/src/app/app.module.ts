@@ -27,6 +27,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { CadastroPermissoesComponent } from './cadastro-permissoes/cadastro-permissoes.component';
 import { CadastroUsuariosComponent } from './cadastro-usuarios/cadastro-usuarios.component';
 import { MatSelectModule } from '@angular/material/select';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -58,13 +59,14 @@ import { MatSelectModule } from '@angular/material/select';
     NgxMaskPipe,
     MatPaginatorModule,
     MatProgressSpinnerModule,
-    MatSelectModule
+    MatSelectModule,
   ],
   exports:[
     MatToolbarModule
   ],
   providers: [
     CadastroFuncionarioService,
+    DatePipe,
     provideNgxMask()
   ],
   bootstrap: [AppComponent]

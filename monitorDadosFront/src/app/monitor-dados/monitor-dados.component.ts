@@ -10,6 +10,7 @@ import { webSocket } from "rxjs/webSocket";
 import { ControlePontoDTO } from './ControlePontoDTO';
 import { Chart, registerables } from 'chart.js';
 import { UltimosDadosDTO } from './UltimosDadosDTO';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-monitor-dados',
@@ -18,6 +19,7 @@ import { UltimosDadosDTO } from './UltimosDadosDTO';
 })
 export class MonitorDadosComponent {
 
+  loadingDados: boolean = false
   itens: any[] = []
   private webSocketConnector!: WebSocketConnector
 
@@ -27,9 +29,12 @@ export class MonitorDadosComponent {
 
   registrosPonto: ControlePontoDTO[] = []
 
+  ultimaAtualizacaoDados: any
+
   constructor(
-    public dialog: MatDialog,
-    public service: MonitorDadosService
+    private dialog: MatDialog,
+    private service: MonitorDadosService,
+    public datePipe: DatePipe
     ){
       Chart.register(...registerables);
   }
@@ -63,9 +68,11 @@ export class MonitorDadosComponent {
   ultimasTemperaturas: UltimosDadosDTO[] = []
 
   async buscaUltimosDados(){
+    this.loadingDados = true
     this.ultimasUmidades = await this.service.buscaUltimasUmidades().toPromise().then()
     this.ultimasLuminosidades = await this.service.buscaUltimasLuminosidades().toPromise().then()
     this.ultimasTemperaturas = await this.service.buscaUltimasTemperaturas().toPromise().then()
+    this.loadingDados = false
   }
 
   mensagemRecebida(mensagem: any){
@@ -77,9 +84,12 @@ export class MonitorDadosComponent {
     }else if (mensagem.tipo == "LUMINOSIDADE"){
       this.luminosidadeAtual = mensagem.dados.valor
     }
+
+    this.ultimaAtualizacaoDados = this.datePipe.transform(mensagem.dados.momento, "dd/MM/yyyy HH:mm:ss")
+
   }
+
   onMessage(message: any){
-    console.log(message)
     this.itens.push(message.body)
   }
 
