@@ -40,7 +40,6 @@ export class MonitorDadosComponent {
   }
 
   ngOnInit() {
-    this.buscaDadosPonto()
 
     this.buscaUltimosDados()
 
@@ -69,6 +68,7 @@ export class MonitorDadosComponent {
 
   async buscaUltimosDados(){
     this.loadingDados = true
+    this.buscaDadosPonto()
     this.ultimasUmidades = await this.service.buscaUltimasUmidades().toPromise().then()
     this.ultimasLuminosidades = await this.service.buscaUltimasLuminosidades().toPromise().then()
     this.ultimasTemperaturas = await this.service.buscaUltimasTemperaturas().toPromise().then()
@@ -79,14 +79,24 @@ export class MonitorDadosComponent {
 
     if(mensagem.tipo == "TEMPERATURA"){
       this.temperaturaAtual = mensagem.dados.valor
-    }else if (mensagem.tipo == "UMIDADE"){
+    }
+    if (mensagem.tipo == "UMIDADE"){
       this.umidadeAtual = mensagem.dados.valor
-    }else if (mensagem.tipo == "LUMINOSIDADE"){
+    }
+    if (mensagem.tipo == "LUMINOSIDADE"){
       this.luminosidadeAtual = mensagem.dados.valor
+    }
+    if (mensagem.tipo == "CARTAOACESSO"){
+      this.registrosPonto.concat(mensagem.dados)
+      this.registrosPonto.sort(it => it.momento)
     }
 
     this.ultimaAtualizacaoDados = this.datePipe.transform(mensagem.dados.momento, "dd/MM/yyyy HH:mm:ss")
 
+  }
+
+  getMomentoFormatado(momento: any){
+    return this.datePipe.transform(momento, "dd/MM/yyyy HH:mm:ss")
   }
 
   onMessage(message: any){

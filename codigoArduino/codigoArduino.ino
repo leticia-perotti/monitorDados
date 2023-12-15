@@ -31,7 +31,7 @@ void setup() {
 
 void loop() {
   long aux = millis();
-  if (aux - time >= 60000) {
+  if (aux - time >= 15000) {
     time = millis();
     Serial.println("|LUMINOSIDADE="+String(analogRead(ldr)));
 

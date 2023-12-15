@@ -20,7 +20,7 @@ class DadosScheduled(
         dadosService.criaListasControladoras()
     }
 
-    @Scheduled(cron ="*/60 * * * * *")
+    @Scheduled(cron ="*/15 * * * * *")
     fun buscaDadoPorEstacao(){
         dadosService.buscaDadoPorEstacao()
     }

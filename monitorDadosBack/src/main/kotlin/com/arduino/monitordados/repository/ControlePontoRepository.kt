@@ -16,7 +16,8 @@ interface ControlePontoRepository: JpaRepository<ControlePontoEntity, Int> {
             "select new com.arduino.monitordados.model.dto.ControlePontoDTO(" +
                     "   co.momento, co.sequencia, ta.funcionario" +
                     ") from ControlePontoEntity co " +
-                    " join TagsEntity ta on (ta.id = co.tag.id) "
+                    " join TagsEntity ta on (ta.id = co.tag.id) " +
+                    " order by co.momento desc limit 10"
     )
     fun retornaPontosDia(): List<ControlePontoDTO>?
 }

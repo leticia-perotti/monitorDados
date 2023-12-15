@@ -1,6 +1,5 @@
 package com.arduino.monitordados.service
 
-import com.arduino.monitordados.config.Stock
 import com.arduino.monitordados.config.TradeWebSocketHandler
 import com.arduino.monitordados.model.constants.TipoDados
 import com.arduino.monitordados.model.dto.CartaoAcessoSocketDTO
@@ -16,7 +15,6 @@ import com.arduino.monitordados.repository.DadosRepository
 import com.arduino.monitordados.repository.EstacaoRepository
 import com.arduino.monitordados.scheduled.ListasControladoras
 import org.springframework.stereotype.Service
-import org.springframework.web.socket.TextMessage
 import java.util.*
 
 @Service
@@ -40,7 +38,7 @@ class DadosService (
 
     fun buscaUltimoMomento(estacao: Int): Date{
         println(Date(Date().time - 36000000000))
-        return /*dadosRepository.buscaUltimoMomentoPorEstacao(estacao)?.momento ?:*/ Date(Date().time - 36000000000000)
+        return dadosRepository.buscaUltimoMomentoPorEstacao(estacao)?.momento ?: Date(Date().time - 60000)
     }
 
     fun sincronizaMediaDados(){
@@ -65,7 +63,7 @@ class DadosService (
 
             enviaOutrosDados(dados?.filter { it -> it.tipo != TipoDados.CARTAOACESSO })
 
-            //it.momento = Date();
+            it.momento = Date();
         }
     }
 
