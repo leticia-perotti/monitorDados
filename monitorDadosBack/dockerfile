@@ -1,0 +1,11 @@
+FROM openjdk:17-jdk-slim
+
+# Define o diretório de trabalho dentro do contêiner
+WORKDIR /app
+
+# Copia o arquivo JAR da aplicação para o contêiner (substitua 'nome-do-arquivo.jar' pelo nome do seu arquivo JAR)
+COPY target/monitordados-0.0.1-SNAPSHOT.jar /app/app.jar
+
+# Comando para iniciar a aplicação quando o contêiner for iniciado
+CMD ["java", "-jar", "app.jar"]
+
